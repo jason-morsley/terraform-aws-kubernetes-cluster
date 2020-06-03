@@ -15,8 +15,7 @@
 
 module "allow-ssh" {
 
-  source = "./../../../terraform-aws-security-group"
-  # source = "jason-morsley/security-group/aws"
+  source = "jason-morsley/security-group/aws"
 
   name = local.name
   description = "To allow SSH to set up Docker."
