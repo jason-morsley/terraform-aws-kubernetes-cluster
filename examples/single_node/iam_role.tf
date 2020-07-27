@@ -15,7 +15,8 @@
 
 module "iam-role" {
 
-  source = "jason-morsley/iam/aws"
+  source = "./../../../terraform-aws-iam"
+  # source = "jason-morsley/iam/aws"
 
   name = var.iam_role_name
 

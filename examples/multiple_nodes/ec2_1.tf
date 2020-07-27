@@ -7,7 +7,8 @@
 
 module "node-1" {
 
-  source = "jason-morsley/ec2/aws"
+ source = "./../../../terraform-aws-ec2"
+  # source = "jason-morsley/ec2/aws"
 
   name = local.node_1_name
 
