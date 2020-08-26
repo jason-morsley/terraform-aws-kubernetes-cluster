@@ -29,15 +29,15 @@ module "single-node-cluster" {
   ec2_data = [{
     user = "ubuntu"
     role = ["controlplane", "etcd", "worker"]
-    public_ip = module.node-1.public_ip
-    private_ip = module.node-1.private_ip
-    encoded_private_key = module.node-1.encoded_private_key
+    public_ip = module.node[0].public_ip
+    private_ip = module.node[0].private_ip
+    encoded_private_key = module.node[0].encoded_private_key
   }]
 
-  mock_depends_on = [
+  depends_on = [
     module.vpc,
     module.allow-ssh,
-    module.node-1
+    module.node[0]
   ]
   
 }

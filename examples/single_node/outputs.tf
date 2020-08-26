@@ -8,7 +8,7 @@
 #                    |_|
 
 output "private_ip_node-1" {
-  value = module.node-1.private_ip
+  value = module.node[0].private_ip
 }
 
 //output "public_key" {
@@ -20,15 +20,15 @@ output "private_ip_node-1" {
 //}
 
 output "public_ip_node_1" {
-  value = module.node-1.public_ip
+  value = module.node[0].public_ip
 }
 
 output "public_dns_node_1" {
-  value = module.node-1.public_dns
+  value = module.node[0].public_dns
 }
 
 output "ssh_command_node_1" {
-  value = module.node-1.ssh_command
+  value = module.node[0].ssh_command
 }
 
 output "export_kubeconfig_command" {

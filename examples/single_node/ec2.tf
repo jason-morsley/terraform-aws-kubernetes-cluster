@@ -5,10 +5,12 @@
 #     | |\  | (_) | (_| |  __/  | |
 #     |_| \_|\___/ \__,_|\___|  |_|
 
-module "node-1" {
+module "node" {
 
   source = "./../../../terraform-aws-ec2"
-  # source = "jason-morsley/ec2/aws"
+  #source = "jason-morsley/ec2/aws"
+  
+  count = 1
 
   name = local.node_name
 
@@ -33,7 +35,7 @@ module "node-1" {
 
   docker = true
   
-  mock_depends_on = [ 
+  depends_on = [ 
     module.s3_bucket
   ]
   
