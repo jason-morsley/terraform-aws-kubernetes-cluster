@@ -17,7 +17,15 @@ locals {
     "kubernetes.io/cluster/${local.name}" = "owned" 
   }
   
-  node_1_name = "${var.ec2_name}-1"
-  node_2_name = "${var.ec2_name}-2"
+  node_name = null_resource.node_name_loop.node_name_value
   
+}
+
+variable "node_name_value" {}
+
+resource "null_resource" "node_name_loop"{
+  
+  for_each = var.number_of_nodes
+  
+    node_name_value = "${var.ec2_name}-${each.key}"
 }

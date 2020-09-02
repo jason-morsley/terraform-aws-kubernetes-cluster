@@ -5,14 +5,17 @@
 #     | |\  | (_) | (_| |  __/  | |
 #     |_| \_|\___/ \__,_|\___|  |_|
 
+variable "number_of_nodes" {
+  default = 2
+}
+
 module "node" {
 
   source = "./../../../terraform-aws-ec2"
-  # source = "jason-morsley/ec2/aws"
   
-  count = 10
+  count = var.number_of_nodes
 
-  name = local.node_1_name
+  name = local.node_name
 
   ami = data.aws_ami.ubuntu.id
   instance_type = var.ec2_instance_type
@@ -35,7 +38,7 @@ module "node" {
   
   docker = true
   
-  mock_depends_on = [ 
+  depends_on = [ 
     module.s3_bucket
   ]
   

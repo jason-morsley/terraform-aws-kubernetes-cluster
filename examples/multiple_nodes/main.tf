@@ -20,33 +20,35 @@
 module "multiple-node-cluster" {
 
   source = "./../../../terraform-aws-kubernetes-cluster"
-  #source = "jason-morsley/kubernetes-cluster/aws"
 
   cluster_name = local.name 
   
   bucket_name = local.bucket_name
   
-  ec2_data = [
-    {
-      user = "ubuntu"
-      role = ["controlplane", "etcd", "worker"]
-      public_ip = module.node[1].public_ip
-      private_ip = module.node[1].private_ip
-      encoded_private_key = module.node[1].encoded_private_key
-    },
-    {
-      user = "ubuntu"
-      role = ["controlplane", "etcd", "worker"]
-      public_ip = module.node[2].public_ip
-      private_ip = module.node[2].private_ip
-      encoded_private_key = module.node[2].encoded_private_key
-    }
-  ]
+  ec2_data = [null_resource.ec2_data_loop.ec2_data]
 
-  mock_depends_on = [
+  depends_on = [
     module.vpc,
     module.allow-ssh,
     module.node
   ]
   
+}
+
+resource "null_resource" "ec2_data_loop"{
+
+  for_each = var.number_of_nodes
+  
+  ec2_data = [
+    {
+      user = "ubuntu"
+      role = [
+        "controlplane",
+        "etcd",
+        "worker"]
+      public_ip = module.node[each.key].public_ip
+      private_ip = module.node[each.key].private_ip
+      encoded_private_key = module.node[each.key].encoded_private_key
+    }
+  ]
 }
