@@ -20,8 +20,8 @@ module "iam-role" {
 
   name = var.iam_role_name
 
-  assume_role_policy = file("${path.module}/role.json")
+  assume_role_policy = file("${path.module}/iam/role.json")
 
-  role_policy = file("${path.module}/policy.json")
+  role_policy = file("${path.module}/iam/policy.json")
 
 }

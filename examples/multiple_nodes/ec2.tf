@@ -1,16 +1,18 @@
-#      _   _           _        ___  
-#     | \ | |         | |      |__ \ 
-#     |  \| | ___   __| | ___     ) |
-#     | . ` |/ _ \ / _` |/ _ \   / / 
-#     | |\  | (_) | (_| |  __/  / /_ 
-#     |_| \_|\___/ \__,_|\___| |____|
+#      _   _           _        __ 
+#     | \ | |         | |      /_ |
+#     |  \| | ___   __| | ___   | |
+#     | . ` |/ _ \ / _` |/ _ \  | |
+#     | |\  | (_) | (_| |  __/  | |
+#     |_| \_|\___/ \__,_|\___|  |_|
 
-module "node-2" {
+module "node" {
 
   source = "./../../../terraform-aws-ec2"
   # source = "jason-morsley/ec2/aws"
+  
+  count = 10
 
-  name = local.node_2_name
+  name = local.node_1_name
 
   ami = data.aws_ami.ubuntu.id
   instance_type = var.ec2_instance_type
@@ -30,7 +32,7 @@ module "node-2" {
   tags = local.cluster_id_tag
   
   bucket_name = local.bucket_name
-
+  
   docker = true
   
   mock_depends_on = [ 

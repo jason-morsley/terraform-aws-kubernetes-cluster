@@ -30,24 +30,23 @@ module "multiple-node-cluster" {
     {
       user = "ubuntu"
       role = ["controlplane", "etcd", "worker"]
-      public_ip = module.node-1.public_ip
-      private_ip = module.node-1.private_ip
-      encoded_private_key = module.node-1.encoded_private_key
+      public_ip = module.node[1].public_ip
+      private_ip = module.node[1].private_ip
+      encoded_private_key = module.node[1].encoded_private_key
     },
     {
       user = "ubuntu"
       role = ["controlplane", "etcd", "worker"]
-      public_ip = module.node-2.public_ip
-      private_ip = module.node-2.private_ip
-      encoded_private_key = module.node-2.encoded_private_key
+      public_ip = module.node[2].public_ip
+      private_ip = module.node[2].private_ip
+      encoded_private_key = module.node[2].encoded_private_key
     }
   ]
 
   mock_depends_on = [
     module.vpc,
     module.allow-ssh,
-    module.node-1,
-    module.node-2
+    module.node
   ]
   
 }
